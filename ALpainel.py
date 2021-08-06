@@ -405,7 +405,7 @@ def cip():
         clear()
         exit()
     ret = json.loads(d.text)
-    if 'invalid query' in ret["message"]:
+    if f'""status":"fail"' in d:
         print(f'{ve}O ip digitado não existe ou foi escrito incorretamente!')
         sleep(2)
         clear()
@@ -428,7 +428,7 @@ def cip():
 
 try:
     clear()
-    print(f'''{ve}Façam o que bem entenderem, isso não é problema meu.''')
+    print(f'''{ve}Façam o que bem entenderem,isso não é problema meu.''')
     sleep(2)
     clear()
     while True:

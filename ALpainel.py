@@ -428,7 +428,7 @@ def cip():
 
 try:
     clear()
-    print(f'''{ve}Façam o que bem entenderem,isso não é problema meu.''')
+    print(f'''{ve}Façam o que bem entenderem, isso não é problema meu.''')
     sleep(2)
     clear()
     while True:

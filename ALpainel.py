@@ -1,4 +1,3 @@
-#  Modulos
 #  os
 try:
     import os
@@ -59,131 +58,27 @@ P = D = S = False
 
 
 # strings
-sex = data = ''
-filtros = fdata = fsexo = pronto = fil = ''
-inicial = f'''{vd}┏━━━━━━━━━━━━━━━━━┓
-┃ {am}[1]›{cy} Filtros{vd}    ┃
-┣━━━━━━━━━━━━━━━━━┫
-┃ {am}[2]›{cy} Continuar{vd}  ┃
-┣━━━━━━━━━━━━━━━━━┫
-┃ {am}[3]›{cy} Sair{vd}       ┃
-┗━━━━━━━━━━━━━━━━━┛'''
 alpainel = f'''{rx}    _    _                 _            _
    / \  | |    _ __   __ _(_)_ __   ___| |
   / _ \ | |   | '_ \ / _` | | '_ \ / _ \ |
  / ___ \| |___| |_) | (_| | | | | |  __/ |
 /_/   \_\_____| .__/ \__,_|_|_| |_|\___|_|
-              |_| {cy}0.8{br}
+              |_| {cy}0.8{ve}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━'''
-painel = f'''{am}﴾ 1 ﴿{br}  ➤{vd}  Nome{br}
-━━━━━━━━━━━━━━━━━━━━
-{am}﴾ 2 ﴿{br}  ➤{ve}  CNPJ{br}
-━━━━━━━━━━━━━━━━━━━━
-{am}﴾ 3 ﴿{br}  ➤{ve}  CPF{br}
-━━━━━━━━━━━━━━━━━━━━
-{am}﴾ 4 ﴿{br}  ➤{vd}  CEP{br}
-━━━━━━━━━━━━━━━━━━━━
-{am}﴾ 5 ﴿{br}  ➤{vd}  Meu IP{br}
-━━━━━━━━━━━━━━━━━━━━
-{am}﴾ 6 ﴿{br}  ➤{vd}  IP{br} 
-━━━━━━━━━━━━━━━━━━━━
-{am}﴾ 7 ﴿{br}  ➤  Creditos
-━━━━━━━━━━━━━━━━━━━━
-{am}﴾ 8 ﴿{br}  ➤  Sair 
-━━━━━━━━━━━━━━━━━━━━'''
-
-
-def menu():
-    clear()
-    global fdata, fsexo, filtros, pronto, fil
-    print(alpainel)
-    filtros = f'''{vd}┏› {rx}Filtros{vd}  ‹┓
-┣━━━━━━━━━━━━┫\n'''
-    if not D:
-        fdata = f'''{vd}┃ {am}[D]›{cy}Data{vd}   ┃
-┣━━━━━━━━━━━━┫\n'''
-    else:
-        fdata = ''
-    if not S:
-        fsexo = f'''{vd}┃ {am}[S]›{cy}Sexo{vd}   ┃
-┣━━━━━━━━━━━━┫\n'''
-    else:
-        fsexo = ''
-    if P:
-        pronto = f'''{vd}┃ {am}[P]›{cy}Pronto{vd} ┃
-┗━━━━━━━━━━━━┛\n'''
-    else:
-        pronto = f'''{vd}┃ {am}[V]›{cy}Voltar{vd} ┃
-┗━━━━━━━━━━━━┛'''
-    fmenu = f'{filtros}{fdata}{fsexo}{pronto}'
-    print(fmenu)
-    fil = str(input(f'{am}//: {br}').upper())
-    if fil[0] == 'D' and not D:
-        datan()
-    elif fil[0] == 'S' and not S:
-        sexon()
-    elif fil[0] == 'P' and P:
-        pass
-    elif fil[0] == 'V' and P:
-        cnome()
-    else:
-        print(f'{ve}Comando inválido!')
-        sleep(1)
-        clear()
-        cnome()
-
-
-def datan():
-    clear()
-    global data, D, P
-    print(alpainel)
-    data = str(input(f'{cy}[DIA/MÊS/ANO] ou somente [ANO]: {vd}').rstrip(']').replace('[', ''))
-    if len(data) == 8:
-        data = f'{data[:2]}/{data[2:4]}/{data[4:8]}'
-    elif len(data) == 4:
-        data = f'/{data}'
-    elif len(data) == 10:
-        pass
-    else:
-        print(f'{ve}Data inválida!')
-        sleep(1)
-        cnome()
-    D = P = True
-    menu()
-
-
-def sexon():
-    clear()
-    global sex, S, P
-    print(alpainel)
-    print(f'''{vd}┏›     {rx}Sexo{vd}      ‹┓
-┣━━━━━━━━━━━━━━━━━┫
-┃ {am}[1]›{cy} Masculino{vd}  ┃
-┣━━━━━━━━━━━━━━━━━┫
-┃ {am}[2]›{cy} Feminino{vd}   ┃
-┣━━━━━━━━━━━━━━━━━┫
-┃ {am}[3]›{cy} Intersexo{vd}  ┃
-┗━━━━━━━━━━━━━━━━━┛''')
-    sexo = str(input(f'{cy}Sexo: {vd}')).lower()
-    if sexo == '1' or sexo[0] == 'm':
-        sex = 'Masculino'
-    elif sexo == '2' or sexo[0] == 'f':
-        sex = 'Feminino'
-    elif sexo == '3' or sexo[0] == 'i':
-        sex = 'Intersexo'
-    else:
-        print(f'{ve}Comando inválido')
-        sleep(1)
-        cnome()
-    S = P = True
-    menu()
-
-
-def loading():
-    print(f'{vd}Loading...\033[m', end='')
-    for c in range(0, 10):
-        sleep(0.1)
-        print(f'{fv}\033[m' if c == 0 else f'{fv}ㅤ\033[m' * c)
+painel = f'''{am}﴾ 1 ﴿{br}  ➤{vd}  CNPJ{ve}
+━━━━━━━━━━━━━━━━━━━━━━━━
+{am}﴾ 2 ﴿{br}  ➤{vd}  CEP{ve}
+━━━━━━━━━━━━━━━━━━━━━━━━
+{am}﴾ 3 ﴿{br}  ➤{vd}  Meu IP{ve}
+━━━━━━━━━━━━━━━━━━━━━━━━
+{am}﴾ 4 ﴿{br}  ➤{vd}  IP{ve}
+━━━━━━━━━━━━━━━━━━━━━━━━
+{am}﴾ 5 ﴿{br}  ➤  Root checker {ve}
+━━━━━━━━━━━━━━━━━━━━━━━━
+{am}﴾ 6 ﴿{br}  ➤  Meu canal{ve}
+━━━━━━━━━━━━━━━━━━━━━━━━
+{am}﴾ 7 ﴿{br}  ➤  Sair{ve}
+━━━━━━━━━━━━━━━━━━━━━━━━'''
 
 
 def clear():
@@ -240,115 +135,10 @@ def ccep():
     A = str(input(f'{am}Voltar{cy}[S/N]: {vd}')).lower()
     if 's' in A[0]:
         clear()
-        pass
+        ccep()
     elif 'n' in A[0]:
-        print(f'{vd}Saindo...')
-        exit()
-
-
-def cnome():
-    r = ''
-    print(alpainel)
-    global data, fil, sex, P, D, S
-    sex = data = ' '
-    P = D = S = False
-    nome = input(f'{am}Nome: {vd}')
-    load = Thread(target=loading)
-    load.start()
-    try:
-        r = requests.get(
-            url='https://consulta-nome1.p.rapidapi.com/apis/astrahvhdeus/Consultas%20Privadas/HTML/nome.php',
-            headers={
-                'User-Agent':
-                    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
-                    'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.164 Safari/537.36',
-                'x-rapidapi-key': 'e01238c690msh74f20bdc84d5dcfp122562jsnc9921fa7c4c1',
-                'x-rapidapi-host': 'consulta-nome1.p.rapidapi.com'},
-            params={'consulta': nome}).text
-    except:
-        print(f'{ve}Conecte-se para que possa usar a script')
-        sleep(2)
         clear()
-        exit()
-    print(f'{fv}ㅤ\033[m' * 10)
-    print(f'{vd}Concluido!')
-    clear()
-    print(alpainel)
-    print(inicial)
-    try:
-        fil = int(input(f'{am}//: {br}'))
-    except ValueError:
-        print(f'{ve}Use apenas números')
-        sleep(1)
-        cnome()
-    if fil == 1:
-        menu()
-        clear()
-        print(f'{alpainel}', end='')
-    elif fil == 2:
-        clear()
-        print(f'{alpainel}', end='')
         pass
-    elif fil == 3:
-        clear()
-        exit()
-    else:
-        print(f'{ve}Comando inválido')
-        sleep(1)
-        clear()
-        cnome()
-    r = r.replace('\\', '/') \
-        .replace('<br>', '!!\n') \
-        .replace('CPF:', f'{pt}{vd}<CPF: {am}') \
-        .replace('NOME:', f'{pt}{vd}Nome: {am}') \
-        .replace('SEXO:', f'{pt}{vd}Sexo: {am}') \
-        .replace('M - Masculino', 'Masculino') \
-        .replace('F - Feminino', 'Feminino') \
-        .replace('NASCIMENTO:', f'{pt}{vd}Nascimento: {am}') \
-        .replace('!!', '\033[m') \
-        .replace('/r<p>', '>\033[m^~/!') \
-        .replace('I - Intersexo', 'Intersexo')
-    if data and sex in r:
-        r = r.replace('^~/!', '')
-        cont = 0
-        q = r.count('>')
-        for c in range(0, q):
-            ini = r.find('<')
-            fim = r.find('>')
-            if f'{data}' in r[(ini + 30):(fim + 35)] and sex in r[(ini + 30):(fim + 35)]:
-                r2 = r[(ini - 15):(fim + 4)]
-                inf = r2.replace('>', '').replace('<', '')
-                print(inf)
-                print(f'\033[m━' * 40, end='')
-                sleep(0.4)
-                cont += 1
-            r = r[(fim + 4):]
-        print('\n')
-        A = str(input(f'{am}Voltar{cy}[S/N]: {vd}')).lower()
-        if 's' in A[0]:
-            clear()
-            pass
-        elif 'n' in A[0]:
-            print(f'{vd}Saindo...')
-            exit()
-    elif 'Sobrenome' in r:
-        print(f'{ve}Utilize sobrenomes nas consultas!')
-        sleep(2)
-        cnome()
-    elif D and S:
-        D = f'{data}'
-        if D not in r:
-            print(f'{ve}\nNenhum nome foi encontrado em {data[1:]}')
-            sleep(2)
-            cnome()
-        else:
-            print(f'{ve}\nNão foram encontradas pessoas do sexo {sex}')
-            sleep(2)
-            cnome()
-    else:
-        print(f"{ve}Não encotramos ninguém :'(")
-        sleep(2)
-        cnome()
 
 
 def mip():
@@ -380,10 +170,10 @@ def mip():
     A = str(input(f'{am}Voltar{cy}[S/N]: {vd}')).lower()
     if 's' in A[0]:
         clear()
-        pass
+        mip()
     elif 'n' in A[0]:
-        print(f'{vd}Saindo...')
-        exit()
+        clear()
+        pass
 
 
 def cip():
@@ -420,15 +210,76 @@ def cip():
     A = str(input(f'{am}Voltar{cy}[S/N]: {vd}')).lower()
     if 's' in A[0]:
         clear()
-        pass
+        cip()
     elif 'n' in A[0]:
-        print(f'{vd}Saindo...')
-        exit()
+        clear()
+        pass
+
+
+def ccnpj():
+    print(alpainel)
+    cnpj = str(input(f'{am}CNPJ: ').replace('/', '').replace('.', '').replace('-', ''))
+    clear()
+    print(alpainel)
+    inf = json.loads(requests.get(f'https://www.receitaws.com.br/v1/cnpj/{cnpj}').text)
+    print(f'{ve}DONO')
+    print(f'{ve}━' * 30)
+    if len(inf['qsa']) > 1:
+        for c in range(0, len(inf['qsa'])):
+            print(f"{am}{inf['qsa'][c]['qual']}\n{vd}{inf['qsa'][c]['nome']}")
+    else:
+        z = f"{inf['nome']}".find('1' or '2' or '3' or '4' or '5' or '6' or '7' or '8' or '9')
+        print(f"{am}Nome: {vd}{inf['nome'][:z]}")
+        print(f"{am}CPF:{vd} {inf['nome'][z:z+11]}")
+    print(f'{ve}━' * 30)
+    estado = json.loads(requests.get(f'https://servicodados.ibge.gov.br/api/v1/localidades/estados/{inf["uf"]}').text)
+    print(f'\n{ve}ENDEREÇO')
+    print(f'{ve}━' * 30)
+    print(f'{am}cep:{vd}', inf['cep'])
+    print(f'{am}Estado:{vd}', estado['nome'])
+    print(f'{am}Cidade:{vd}', inf['municipio'])
+    print(f'{am}Bairro:{vd}', inf['bairro'])
+    print(f'{am}Rua:{vd}', inf['logradouro'])
+    print(f'{am}Número:{vd}', inf['numero'])
+    print(f'{ve}━' * 30)
+    print(f'\n{ve}{inf["porte"]}')
+    print(f'{ve}━' * 40)
+    print(f"{am}Nome:{vd} {inf['fantasia']}")
+    print(f'{am}Capital:{vd} {inf["capital_social"]}')
+    print(f'{am}Abertura:{vd} {inf["abertura"]}')
+    print(f'{am}Telefone:{vd} {inf["telefone"]}'.replace('/', ''))
+    print(f'{am}Email:{vd} {inf["email"]}')
+    print(f'{am}CNPJ:{vd} {inf["cnpj"]}')
+    print(f'{ve}━' * 40)
+    A = str(input(f'{am}Voltar{cy}[S/N]: {vd}')).lower()
+    if 's' in A[0]:
+        clear()
+        ccnpj()
+    elif 'n' in A[0]:
+        clear()
+        pass
 
 
 try:
     clear()
-    print(f'''{ve}Façam o que bem entenderem,isso não é problema meu.''')
+    print(f'''{ve}
+                 ___====-_  _-====___
+           _--^^^#####/./      \.\#####^^^--_
+        _-^##########/./ (    ) \.\##########^-_
+       -############/./  |\^^/|  \.\############-
+     _/############/./   (@::@)   \.\############\_
+    /#############(.(     \  /     ).)#############\,
+   -###############\.\    (oo)    /./#######Lursy###-
+  -#################\.\  / VV \  /./#################-
+ -#######Asmodeus####\.\/      \/./###################-
+  _#/|##########/\######(   /\   )######/\##########|\#_
+  |/ |#/\#/\#/\/  \#/\##\  |  |  /##/\#/  \/\#/\#/\#| \|
+  `  |/  V  V  `   V  \#\| |  | |/#/  V   '  V  V  \|  '
+     `   `  `      `   / | |  | | \   '      '  '   '
+                      (  | |  | |  )
+                     __\ | |  | | /__
+                    (vvv(VVV)(VVV)vvv)
+''')
     sleep(2)
     clear()
     while True:
@@ -437,33 +288,28 @@ try:
         esc = int(input(f'{am}//: '))
         if esc == 1:
             clear()
-            cnome()
+            ccnpj()
         elif esc == 2:
-            print(f'{ve}Em produção')
-            sleep(1)
-            clear()
-        elif esc == 3:
-            print(f'{ve}Em produção')
-            sleep(1)
-            clear()
-        elif esc == 4:
             clear()
             ccep()
-        elif esc == 5:
+        elif esc == 3:
             clear()
             mip()
-        elif esc == 6:
+        elif esc == 4:
             clear()
             cip()
+        elif esc == 5:
+            root = os.getenv("Sudo_USER")
+            if root is None:
+                print(f'{ve}Root OFF{br}')
+            else:
+                print(f'{vd}Root ON{br}')
+            sleep(3)
+            clear()
+        elif esc == 6:
+            os.system(f'termux-open-url https://www.youtube.com/channel/UCwmkiKIZHL1wscYHfIINZKw')
+            clear()
         elif esc == 7:
-            clear()
-            print(alpainel)
-            print(f'{br}Criação:{cy} Lursy')
-            sleep(1)
-            print(f'{br}API nome: {cy}Kiny')
-            sleep(1)
-            clear()
-        elif esc == 8:
             print(f'{vd}Saindo...')
             sleep(1)
             clear()

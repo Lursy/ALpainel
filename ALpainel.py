@@ -87,8 +87,6 @@ def clear():
 
 
 def ccep():
-    estado = {'nome': ''}
-    req = ''
     print(alpainel)
     cep = str(input(f'{am}CEP: {vd}').strip())
     if len(cep) > 8:
@@ -96,42 +94,28 @@ def ccep():
             cep = cep[:-1]
     for c in range(len(cep), 8):
         cep = f'{cep + "0"}'
-    try:
-        req = requests.get(f'https://viacep.com.br/ws/{cep}/json/')
-    except:
-        print(f'{ve}Conecte-se para que possa usar a script')
+    req = requests.get(f'https://viacep.com.br/ws/{cep}/json/')
+    dcep = json.loads(req.text)
+    if 'erro' in dcep:
+        print(f'{ve}O cep digitado não existe')
         sleep(2)
         clear()
-        exit()
-    try:
-        dcep = json.loads(req.text)
-        if 'erro' in dcep:
-            print(f'{ve}O cep digitado não existe')
-            sleep(2)
-            clear()
-            ccep()
-        try:
-            estado = requests.get(f'https://servicodados.ibge.gov.br/api/v1/localidades/estados/{dcep["uf"]}')
-        except:
-            print(f'{ve}Conecte-se para que possa usar a script')
-            sleep(2)
-            clear()
-            exit()
-        estado = json.loads(estado.text)
-        clear()
-        print(alpainel)
-        print(f'{pt}{vd}CEP:{am} {cep}\033[m')
-        print(f'{pt}{vd}Estado:{am}', f'{dcep["uf"]}{br} ➤ {am}{estado["nome"]}\033[m')
-        print(f'{pt}{vd}Cidade:{am} {dcep["localidade"]}\033[m')
-        if dcep['bairro'] != '':
-            print(f'{pt}{vd}Bairro:{am} {dcep["bairro"]}\033[m')
-        if dcep['logradouro'] != '':
-            print(f'{pt}{vd}Rua:{am} {dcep["logradouro"]}\033[m')
-        print(f'{pt}{vd}DDD:{am} {dcep["ddd"]}\033[m\n')
-    except:
-        print(f'{ve}CEP digitado não existe')
-        clear()
         ccep()
+    estado = requests.get(f'https://servicodados.ibge.gov.br/api/v1/localidades/estados/{dcep["uf"]}')
+    estado = json.loads(estado.text)
+    clear()
+    print(alpainel)
+    print(f'{pt}{vd}CEP:{am} {cep}\033[m')
+    print(f'{pt}{vd}Estado:{am}', f'{dcep["uf"]}{br} ➤ {am}{estado["nome"]}\033[m')
+    print(f'{pt}{vd}Cidade:{am} {dcep["localidade"]}\033[m')
+    if dcep['bairro'] != '':
+        print(f'{pt}{vd}Bairro:{am} {dcep["bairro"]}\033[m')
+    if dcep['logradouro'] != '':
+        print(f'{pt}{vd}Rua:{am} {dcep["logradouro"]}\033[m')
+    print(f'{pt}{vd}DDD:{am} {dcep["ddd"]}\033[m\n')
+    print(f'{ve}CEP digitado não existe')
+    clear()
+    ccep()
     A = str(input(f'{am}Voltar{cy}[S/N]: {vd}')).lower()
     if 's' in A[0]:
         clear()
@@ -142,25 +126,16 @@ def ccep():
 
 
 def mip():
-    req = d = ''
     print(alpainel)
-    try:
-        req = requests.get('https://www.meuip.com.br/').text
-    except:
-        print(f'{ve}Conecte-se para que possa usar a script')
-        sleep(2)
-        clear()
-        exit()
+    req = requests.get('https://www.meuip.com.br/').text
     a = req.find('Meu ip é')
     b = req.find('</h3>')
     c = req[a + 9:b]
-    try:
-        d = requests.get(f'http://ip-api.com/json/{c}').text
-    except:
-        print(f'{ve}Conecte-se para que possa usar a script')
-        sleep(2)
-        clear()
-        exit()
+    d = requests.get(f'http://ip-api.com/json/{c}').text
+    print(f'{ve}Conecte-se para que possa usar a script')
+    sleep(2)
+    clear()
+    exit()
     ret = json.loads(d)
     print(f'{pt}{vd}IP atual:{am} {c}\033[m')
     print(f'{pt}{vd}Pais:{am}', ret['countryCode'], f'{br}➤{am} {ret["country"]}\033[m')
@@ -177,7 +152,6 @@ def mip():
 
 
 def cip():
-    d = ''
     print(alpainel)
     ip = str(input(f'{am}IP: {vd}'))
     if '.' in ip:
@@ -187,13 +161,7 @@ def cip():
         sleep(1)
         clear()
         cip()
-    try:
-        d = requests.get(f'http://ip-api.com/json/{ip}')
-    except:
-        print(f'{ve}Conecte-se para que possa usar a script')
-        sleep(2)
-        clear()
-        exit()
+    d = requests.get(f'http://ip-api.com/json/{ip}')
     ret = json.loads(d.text)
     if f'""status":"fail"' in d:
         print(f'{ve}O ip digitado não existe ou foi escrito incorretamente!')
@@ -299,11 +267,16 @@ try:
             clear()
             cip()
         elif esc == 5:
-            root = os.getenv("Sudo_USER")
-            if root is None:
-                print(f'{ve}Root OFF{br}')
+            root = os.system('su and exit')
+            clear()
+            print(alpainel)
+            print(painel)
+            if root == 0:
+                print(f'{vd}Root ON')
+            elif root == 256:
+                print(f'{ve}Root OFF')
             else:
-                print(f'{vd}Root ON{br}')
+                print(f'{cy}Error')
             sleep(3)
             clear()
         elif esc == 6:

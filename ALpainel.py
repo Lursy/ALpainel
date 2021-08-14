@@ -94,35 +94,31 @@ def ccep():
             cep = cep[:-1]
     for c in range(len(cep), 8):
         cep = f'{cep + "0"}'
-    req = requests.get(f'https://viacep.com.br/ws/{cep}/json/')
-    dcep = json.loads(req.text)
-    if 'erro' in dcep:
+    dcep = json.loads(requests.get(f'https://viacep.com.br/ws/{cep}/json/').text)
+    if 'erro' not in dcep:
+        estado = requests.get(f'https://servicodados.ibge.gov.br/api/v1/localidades/estados/' + dcep['uf'])
+        estado = json.loads(estado.text)
+        clear()
+        print(alpainel)
+        print(f'{pt}{vd}CEP:{am} {cep}\033[m\n'
+              f'{pt}{vd}Estado:{am} {dcep["uf"]}{br} ➤ {am}{estado["nome"]}\033[m\n'
+              f'{pt}{vd}Cidade:{am} {dcep["localidade"]}\033[m')
+        if dcep['bairro'] != '':
+            print(f'{pt}{vd}Bairro:{am} {dcep["bairro"]}\033[m')
+        if dcep['logradouro'] != '':
+            print(f'{pt}{vd}Rua:{am} {dcep["logradouro"]}\033[m')
+        print(f'{pt}{vd}DDD:{am} {dcep["ddd"]}\033[m\n')
+        voltar = str(input(f'{am}Voltar{cy}[S/N]: {vd}')).lower()
+        if 's' in voltar[0]:
+            clear()
+            ccep()
+        elif 'n' in voltar[0]:
+            clear()
+    else:
         print(f'{ve}O cep digitado não existe')
         sleep(2)
         clear()
         ccep()
-    estado = requests.get(f'https://servicodados.ibge.gov.br/api/v1/localidades/estados/{dcep["uf"]}')
-    estado = json.loads(estado.text)
-    clear()
-    print(alpainel)
-    print(f'{pt}{vd}CEP:{am} {cep}\033[m')
-    print(f'{pt}{vd}Estado:{am}', f'{dcep["uf"]}{br} ➤ {am}{estado["nome"]}\033[m')
-    print(f'{pt}{vd}Cidade:{am} {dcep["localidade"]}\033[m')
-    if dcep['bairro'] != '':
-        print(f'{pt}{vd}Bairro:{am} {dcep["bairro"]}\033[m')
-    if dcep['logradouro'] != '':
-        print(f'{pt}{vd}Rua:{am} {dcep["logradouro"]}\033[m')
-    print(f'{pt}{vd}DDD:{am} {dcep["ddd"]}\033[m\n')
-    print(f'{ve}CEP digitado não existe')
-    clear()
-    ccep()
-    A = str(input(f'{am}Voltar{cy}[S/N]: {vd}')).lower()
-    if 's' in A[0]:
-        clear()
-        ccep()
-    elif 'n' in A[0]:
-        clear()
-        pass
 
 
 def mip():
@@ -132,56 +128,49 @@ def mip():
     b = req.find('</h3>')
     c = req[a + 9:b]
     d = requests.get(f'http://ip-api.com/json/{c}').text
-    print(f'{ve}Conecte-se para que possa usar a script')
-    sleep(2)
-    clear()
-    exit()
     ret = json.loads(d)
-    print(f'{pt}{vd}IP atual:{am} {c}\033[m')
-    print(f'{pt}{vd}Pais:{am}', ret['countryCode'], f'{br}➤{am} {ret["country"]}\033[m')
-    print(f'{pt}{vd}Cidade: {am}{ret["city"]}\033[m')
-    print(f'{pt}{vd}Latitude:{am} {ret["lat"]}\033[m')
-    print(f'{pt}{vd}Longitude:{am} {ret["lon"]}\033[m\n')
-    A = str(input(f'{am}Voltar{cy}[S/N]: {vd}')).lower()
-    if 's' in A[0]:
+    print(f'{pt}{vd}IP atual:{am} {c}\033[m\n'
+          f'{pt}{vd}Pais:{am} {ret["countryCode"]} {br}➤{am} {ret["country"]}\033[m\n'
+          f'{pt}{vd}Cidade: {am}{ret["city"]}\033[m\n'
+          f'{pt}{vd}Latitude:{am} {ret["lat"]}\033[m\n'
+          f'{pt}{vd}Longitude:{am} {ret["lon"]}\033[m\n')
+    voltar = str(input(f'{am}Voltar{cy}[S/N]: {vd}')).lower()
+    if 's' in voltar[0]:
         clear()
         mip()
-    elif 'n' in A[0]:
+    elif 'n' in voltar[0]:
         clear()
-        pass
 
 
 def cip():
     print(alpainel)
     ip = str(input(f'{am}IP: {vd}'))
     if '.' in ip:
-        pass
+        d = requests.get(f'http://ip-api.com/json/{ip}')
+        ret = json.loads(d.text)
+        if f'""status":"fail"' in d:
+            print(f'{ve}O ip digitado não existe ou foi escrito incorretamente!')
+            sleep(2)
+            clear()
+            cip()
+        clear()
+        print(alpainel)
+        print(f'{pt}{vd}IP: {am}{ip}\033[m\n'
+              f'{pt}{vd}Pais:{am} {ret["countryCode"]} {br}➤{am} {ret["country"]}\033[m\n'
+              f'{pt}{vd}Cidade: {am}{ret["city"]}\033[m\n'
+              f'{pt}{vd}Latitude:{am} {ret["lat"]}\033[m\n'
+              f'{pt}{vd}Longitude:{am} {ret["lon"]}\033[m\n')
+        voltar = str(input(f'{am}Voltar{cy}[S/N]: {vd}')).lower()
+        if 's' in voltar[0]:
+            clear()
+            cip()
+        elif 'n' in voltar[0]:
+            clear()
     else:
         print(f'{ve}Use a pontuação no IP')
         sleep(1)
         clear()
         cip()
-    d = requests.get(f'http://ip-api.com/json/{ip}')
-    ret = json.loads(d.text)
-    if f'""status":"fail"' in d:
-        print(f'{ve}O ip digitado não existe ou foi escrito incorretamente!')
-        sleep(2)
-        clear()
-        cip()
-    clear()
-    print(alpainel)
-    print(f'{pt}{vd}IP: {am}{ip}\033[m')
-    print(f'{pt}{vd}Pais:{am}', ret['countryCode'], f'{br}➤{am} {ret["country"]}\033[m')
-    print(f'{pt}{vd}Cidade: {am}{ret["city"]}\033[m')
-    print(f'{pt}{vd}Latitude:{am} {ret["lat"]}\033[m')
-    print(f'{pt}{vd}Longitude:{am} {ret["lon"]}\033[m\n')
-    A = str(input(f'{am}Voltar{cy}[S/N]: {vd}')).lower()
-    if 's' in A[0]:
-        clear()
-        cip()
-    elif 'n' in A[0]:
-        clear()
-        pass
 
 
 def ccnpj():
@@ -219,27 +208,25 @@ def ccnpj():
     print(f'{am}Email:{vd} {inf["email"]}')
     print(f'{am}CNPJ:{vd} {inf["cnpj"]}')
     print(f'{ve}━' * 40)
-    A = str(input(f'{am}Voltar{cy}[S/N]: {vd}')).lower()
-    if 's' in A[0]:
+    voltar = str(input(f'{am}Voltar{cy}[S/N]: {vd}')).lower()
+    if 's' in voltar[0]:
         clear()
         ccnpj()
-    elif 'n' in A[0]:
+    elif 'n' in voltar[0]:
         clear()
-        pass
 
 
 try:
     clear()
-    print(f'''{ve}
-                 ___====-_  _-====___
+    print(f'''{ve}                 ___====-_  _-====___
            _--^^^#####/./      \.\#####^^^--_
         _-^##########/./ (    ) \.\##########^-_
        -############/./  |\^^/|  \.\############-
      _/############/./   (@::@)   \.\############\_
     /#############(.(     \  /     ).)#############\,
-   -###############\.\    (oo)    /./#######Lursy###-
+   -###############\.\    (oo)    /./###############-
   -#################\.\  / VV \  /./#################-
- -#######Asmodeus####\.\/      \/./###################-
+ -###################\.\/      \/./###################-
   _#/|##########/\######(   /\   )######/\##########|\#_
   |/ |#/\#/\#/\/  \#/\##\  |  |  /##/\#/  \/\#/\#/\#| \|
   `  |/  V  V  `   V  \#\| |  | |/#/  V   '  V  V  \|  '
@@ -247,7 +234,7 @@ try:
                       (  | |  | |  )
                      __\ | |  | | /__
                     (vvv(VVV)(VVV)vvv)
-''')
+                      ASMODEUS&LURSY''')
     sleep(2)
     clear()
     while True:

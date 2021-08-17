@@ -11,7 +11,7 @@
 > Root checker  
 
 **Em breve**
-> Informações por número
+> Informações por número  
 > Consulta de placa  
 
 [**Contato para coversar sobre o script**](https://api.whatsapp.com/send/?phone=%2B994405596345&text&app_absent=0)

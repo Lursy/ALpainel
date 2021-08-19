@@ -10,9 +10,9 @@ def ccnpj():
     clear()
     print(alpainel)
     inf = json.loads(requests.get(f'https://www.receitaws.com.br/v1/cnpj/{cnpj}').text)
-    print(f'{ve}DONO')
-    print(f'{ve}━' * 30)
-    if inf['status'].lower != 'error':
+    if inf['status'] != 'ERROR':
+        print(f'{ve}DONO')
+        print(f'{ve}━' * 30)
         if len(inf['qsa']) > 1:
             for c in range(0, len(inf['qsa'])):
                 print(f"{am}{inf['qsa'][c]['qual']}\n{vd}{inf['qsa'][c]['nome']}")

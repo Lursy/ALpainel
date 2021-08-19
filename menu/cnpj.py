@@ -1,4 +1,7 @@
-from ALPainel import *
+from ascii import *
+from tools import *
+import requests
+import json
 
 
 def ccnpj():

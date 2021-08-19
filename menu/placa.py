@@ -1,5 +1,7 @@
 from ascii import *
-from cores import *
+from tools import *
+import requests
+import json
 
 
 def cplaca():

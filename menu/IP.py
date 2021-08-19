@@ -1,4 +1,4 @@
-from LPainel import *
+from ALPainel import *
 from time import sleep
 
 

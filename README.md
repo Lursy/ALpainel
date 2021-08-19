@@ -10,7 +10,7 @@
 > Consulta de CEP  
 > Consulta de placa  
 
-**Ferramentas**
+**FERRAMENTAS**
 > Root checker  
 > Info números  
 > Meu IP  

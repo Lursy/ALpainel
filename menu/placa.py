@@ -1,4 +1,5 @@
-from ALPainel import *
+from ascii import *
+from cores import *
 
 
 def cplaca():

@@ -1,5 +1,6 @@
-from ALPainel import *
-from time import sleep
+from ascii import *
+from tools import *
+import phonenumbers
 
 
 def numeros():

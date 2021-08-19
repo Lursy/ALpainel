@@ -1,41 +1,28 @@
-#  os
+from time import sleep
+import os
+
+
+# phonenumbers
 try:
-    import os
+    import phonenumbers
 except ModuleNotFoundError:
-    print('Error: Biblioteca "os" não instalada')
-    print('Instalação manual')
-    print('''1: python3 -m pip install --upgrade pip
-2: pip install os''')
+    print('Instalando...')
+    os.system('python3 -m pip install --upgrade pip>&/dev/null/')
+    os.system('pip install phonenumbers>&/dev/null/')
+    import phonenumbers
 
 
-# threading
-try:
-    from threading import Thread
-except ModuleNotFoundError:
-    os.system('python3 -m pip install --upgrade pip')
-    os.system('pip install threading')
-    import threading
-
-
-#  time
-try:
-    from time import sleep
-except ModuleNotFoundError:
-    os.system('python3 -m pip install --upgrade pip')
-    os.system('pip install time')
-    from time import sleep
-
-
-#  json
+# json
 try:
     import json
 except ModuleNotFoundError:
-    os.system('python3 -m pip install --upgrade pip')
-    os.system('pip install json')
+    print('Instalando...')
+    os.system('python3 -m pip install --upgrade pip>&/dev/null/')
+    os.system('pip install json>&/dev/null/')
     import json
 
 
-#  requests
+# requests
 try:
     import requests
 except ModuleNotFoundError:
@@ -52,38 +39,109 @@ az = '\033[1;34m'  # Azul
 br = '\033[1;37m'  # Branco
 cy = '\033[1;36m'  # Ciano
 rx = '\033[0;35m'  # Roxo
-pt = '\033[0;40m'  # Fundo Preto
-fv = '\033[0;42m'  # Fundo Verde
+pt = '\033[1;30m'  # Preto
+fv = '\033[1;42m'  # Fundo verde
 P = D = S = False
 
 
 # strings
-alpainel = f'''{rx}    _    _                 _            _
-   / \  | |    _ __   __ _(_)_ __   ___| |
-  / _ \ | |   | '_ \ / _` | | '_ \ / _ \ |
- / ___ \| |___| |_) | (_| | | | | |  __/ |
-/_/   \_\_____| .__/ \__,_|_|_| |_|\___|_|
-              |_| {cy}0.8{ve}
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━'''
-painel = f'''{am}﴾ 1 ﴿{br}  ➤{vd}  CNPJ{ve}
-━━━━━━━━━━━━━━━━━━━━━━━━
-{am}﴾ 2 ﴿{br}  ➤{vd}  CEP{ve}
-━━━━━━━━━━━━━━━━━━━━━━━━
-{am}﴾ 3 ﴿{br}  ➤{vd}  Meu IP{ve}
-━━━━━━━━━━━━━━━━━━━━━━━━
-{am}﴾ 4 ﴿{br}  ➤{vd}  IP{ve}
-━━━━━━━━━━━━━━━━━━━━━━━━
-{am}﴾ 5 ﴿{br}  ➤  Root checker {ve}
-━━━━━━━━━━━━━━━━━━━━━━━━
-{am}﴾ 6 ﴿{br}  ➤  Meu canal{ve}
-━━━━━━━━━━━━━━━━━━━━━━━━
-{am}﴾ 7 ﴿{br}  ➤  Sair{ve}
-━━━━━━━━━━━━━━━━━━━━━━━━'''
+alpainel = f'''{rx}      _    _                 _            _
+     / \  | |    _ __   __ _(_)_ __   ___| |
+    / _ \ | |   | '_ \ / _` | | '_ \ / _ \ |
+   / ___ \| |___| |_) | (_| | | | | |  __/ |
+  /_/   \_\_____| .__/ \__,_|_|_| |_|\___|_|
+                |_| {cy}2.0{ve}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n'''
+painel = f'''{ve}┏━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━┓
+┃    {am}[{vd} CONSULTAS {am}]{ve}     ┃  {am}[{az} Ferramentas {am}]{ve}   ┃
+┃
+┣┫{am}[1]{vd} Consulta CNPJ{ve}  ◄━╋┫{am}[5]{az} Info número{ve}  ◄━┫
+┃
+┣┫{am}[2]{vd} Consulta CEP{ve}   ◄━╋┫{am}[6]{az} Root checker{ve} ◄━┫
+┃
+┣┫{am}[3]{vd} Consulta IP{ve}    ◄━╋┫{am}[7]{az} Meu IP{ve}       ◄━┫
+┃
+┣┫{am}[4]{vd} Consulta Placa{ve} ◄━╋━━━━━━━━━━━━┳━━━━━━━┛
+┃                      ┃ {am}[{br} Opções {am}]{ve} ┃
+┗━━━━━━━━━━━━━━━━━━┳━━━┛
+                   ┣┫{am}[8]{br} Criador{ve}  ◄━┫
+                   ┃
+                   ┣┫{am}[9]{br} Sair{ve}     ◄━┫
+                   ┗━━━━━━━━━━━━━━━━┻Lursy'''
 
 
 def clear():
     sleep(1)
     os.system('clear' if os.name != 'nt' else 'cls')
+
+
+def numeros():
+    EUA = 'n'
+    print(alpainel)
+    telefone = str(input(f'{am}Número: {br}'))
+    ps = len(telefone)
+    if ps == 11 and not '+' in telefone:
+        EUA = str(input(f'{am}O número inserido é internacional?{cy}[S/N] ')[0].lower())
+    if EUA == 's' or EUA == 'n':
+        num = phonenumbers.parse(f'+{telefone.replace("+", "")}'
+                                 if ps > 12 or EUA == 's' or '+' in telefone else
+                                 telefone, 'BR')
+        numero = phonenumbers.format_number(num, phonenumbers.PhoneNumberFormat.INTERNATIONAL)
+        clear()
+        print(alpainel)
+        print(f'{vd}[+]{am}Número: {vd}' + numero)
+        sleep(0.5)
+        from phonenumbers import carrier, geocoder
+        pais = geocoder.country_name_for_number(num, 'pt')
+        print(f'{vd}[+]{am}Pais: {vd}' + pais if pais != '' else f'{ve}[-]{am}Pais: {vd}None')
+        sleep(0.5)
+        estado = geocoder.description_for_number(num, 'pt-br')
+        print(f'{vd}[+]{am}Estado: {vd}' + estado if estado != '' else f'{ve}[-]{am}Estado: {vd}None')
+        sleep(0.5)
+        operadora = carrier.name_for_number(num, 'en')
+        print(f'{vd}[+]{am}Operadora: {vd}' + operadora if operadora != '' else f'{ve}[-]{am}Operadora: {vd}None\n')
+        sleep(0.5)
+        print(f'{ve}━' * 43)
+        voltar = str(input(f'{am}Voltar{cy}[S/N]: {vd}')).lower()
+        if 's' in voltar[0]:
+            clear()
+            numeros()
+        elif 'n' in voltar[0]:
+            clear()
+    else:
+        print(f'{ve}Comando inválido!')
+        sleep(2)
+        clear()
+        numeros()
+
+
+def cplaca():
+    print(alpainel)
+    placa = str(input(f'{am}Placa: {br}')).lower()
+    info = requests.get(f'https://apicarros.com/v1/consulta/{placa}/json', verify=False).text
+    info = json.loads(info)
+    estado = requests.get(f'https://servicodados.ibge.gov.br/api/v1/localidades/estados/' + info['uf'])
+    estado = json.loads(estado.text)
+    clear()
+    print(alpainel)
+    if 'LIMITE' in info:
+        print(f'{ve}Limite de consulta atingido')
+    else:
+        print(f'''{am}Ano: {vd}{info['ano']}
+{am}Ano modelo: {vd}{info['anoModelo']}
+{am}Marca: {vd}{info['marca']}
+{am}Cor: {vd}{info['cor']}
+{am}Placa:  {vd}{info['placa']}
+{am}Estado: {vd}{estado['nome']} ➤ {info['uf']}
+{am}Cidade: {vd}{info['municipio']}
+        ''')
+    print(f'{ve}━' * 43)
+    voltar = str(input(f'{am}Voltar{cy}[S/N]: {vd}')).lower()
+    if 's' in voltar[0]:
+        clear()
+        ccnpj()
+    elif 'n' in voltar[0]:
+        clear()
 
 
 def ccep():
@@ -100,14 +158,15 @@ def ccep():
         estado = json.loads(estado.text)
         clear()
         print(alpainel)
-        print(f'{pt}{vd}CEP:{am} {cep}\033[m\n'
-              f'{pt}{vd}Estado:{am} {dcep["uf"]}{br} ➤ {am}{estado["nome"]}\033[m\n'
-              f'{pt}{vd}Cidade:{am} {dcep["localidade"]}\033[m')
+        print(f'{vd}CEP:{am} {cep}\n'
+              f'{vd}Estado:{am} {dcep["uf"]}{br} ➤ {am}{estado["nome"]}\n'
+              f'{vd}Cidade:{am} {dcep["localidade"]}')
         if dcep['bairro'] != '':
-            print(f'{pt}{vd}Bairro:{am} {dcep["bairro"]}\033[m')
+            print(f'{vd}Bairro:{am} {dcep["bairro"]}')
         if dcep['logradouro'] != '':
-            print(f'{pt}{vd}Rua:{am} {dcep["logradouro"]}\033[m')
-        print(f'{pt}{vd}DDD:{am} {dcep["ddd"]}\033[m\n')
+            print(f'{vd}Rua:{am} {dcep["logradouro"]}')
+        print(f'{vd}DDD:{am} {dcep["ddd"]}\033[m\n')
+        print(f'{ve}━' * 43)
         voltar = str(input(f'{am}Voltar{cy}[S/N]: {vd}')).lower()
         if 's' in voltar[0]:
             clear()
@@ -129,11 +188,12 @@ def mip():
     c = req[a + 9:b]
     d = requests.get(f'http://ip-api.com/json/{c}').text
     ret = json.loads(d)
-    print(f'{pt}{vd}IP atual:{am} {c}\033[m\n'
-          f'{pt}{vd}Pais:{am} {ret["countryCode"]} {br}➤{am} {ret["country"]}\033[m\n'
-          f'{pt}{vd}Cidade: {am}{ret["city"]}\033[m\n'
-          f'{pt}{vd}Latitude:{am} {ret["lat"]}\033[m\n'
-          f'{pt}{vd}Longitude:{am} {ret["lon"]}\033[m\n')
+    print(f'{vd}IP atual:{am} {c}\n'
+          f'{vd}Pais:{am} {ret["countryCode"]} {br}➤{am} {ret["country"]}\n'
+          f'{vd}Cidade: {am}{ret["city"]}\n'
+          f'{vd}Latitude:{am} {ret["lat"]}\n'
+          f'{vd}Longitude:{am} {ret["lon"]}\n')
+    print(f'{ve}━' * 43)
     voltar = str(input(f'{am}Voltar{cy}[S/N]: {vd}')).lower()
     if 's' in voltar[0]:
         clear()
@@ -155,11 +215,12 @@ def cip():
             cip()
         clear()
         print(alpainel)
-        print(f'{pt}{vd}IP: {am}{ip}\033[m\n'
-              f'{pt}{vd}Pais:{am} {ret["countryCode"]} {br}➤{am} {ret["country"]}\033[m\n'
-              f'{pt}{vd}Cidade: {am}{ret["city"]}\033[m\n'
-              f'{pt}{vd}Latitude:{am} {ret["lat"]}\033[m\n'
-              f'{pt}{vd}Longitude:{am} {ret["lon"]}\033[m\n')
+        print(f'{vd}IP: {am}{ip}\033[m\n'
+              f'{vd}Pais:{am} {ret["countryCode"]} {br}➤{am} {ret["country"]}\n'
+              f'{vd}Cidade: {am}{ret["city"]}\n'
+              f'{vd}Latitude:{am} {ret["lat"]}\n'
+              f'{vd}Longitude:{am} {ret["lon"]}\n')
+        print(f'{ve}━' * 43)
         voltar = str(input(f'{am}Voltar{cy}[S/N]: {vd}')).lower()
         if 's' in voltar[0]:
             clear()
@@ -218,23 +279,22 @@ def ccnpj():
 
 try:
     clear()
-    print(f'''{ve}                 ___====-_  _-====___
-           _--^^^#####/./      \.\#####^^^--_
-        _-^##########/./ (    ) \.\##########^-_
-       -############/./  |\^^/|  \.\############-
-     _/############/./   (@::@)   \.\############\_
-    /#############(.(     \  /     ).)#############\,
-   -###############\.\    (oo)    /./###############-
-  -#################\.\  / VV \  /./#################-
- -###################\.\/      \/./###################-
-  _#/|##########/\######(   /\   )######/\##########|\#_
+    print(f'''{ve}                  ___====-_  _-====___
+            _--^^^#####/./      \.\#####^^^--_
+         _-^##########/./ (    ) \.\##########^-_
+        -############/./  |\^^/|  \.\############-
+      _/############/./   (@::@)   \.\############\_
+     /#############(.(     \  /     ).)#############\,
+    -###############\.\    (oo)    /./###############-
+   -#################\.\  / VV \  /./#################-
+  -###################\.\/      \/./###################-
+  _#/|##########/\#####(    /\    )#####/\##########|\#_
   |/ |#/\#/\#/\/  \#/\##\  |  |  /##/\#/  \/\#/\#/\#| \|
   `  |/  V  V  `   V  \#\| |  | |/#/  V   '  V  V  \|  '
      `   `  `      `   / | |  | | \   '      '  '   '
                       (  | |  | |  )
                      __\ | |  | | /__
-                    (vvv(VVV)(VVV)vvv)
-                      ASMODEUS&LURSY''')
+                    (vvv(VVV)(VVV)vvv)''')
     sleep(2)
     clear()
     while True:
@@ -249,15 +309,15 @@ try:
             ccep()
         elif esc == 3:
             clear()
-            mip()
+            cip()
         elif esc == 4:
             clear()
-            cip()
+            cplaca()
         elif esc == 5:
-            root = os.system('su and exit')
             clear()
-            print(alpainel)
-            print(painel)
+            numeros()
+        elif esc == 6:
+            root = os.system('su and exit>null')
             if root == 0:
                 print(f'{vd}Root ON')
             elif root == 256:
@@ -266,10 +326,13 @@ try:
                 print(f'{cy}Error')
             sleep(3)
             clear()
-        elif esc == 6:
+        elif esc == 7:
+            clear()
+            mip()
+        elif esc == 8:
             os.system(f'termux-open-url https://www.youtube.com/channel/UCwmkiKIZHL1wscYHfIINZKw')
             clear()
-        elif esc == 7:
+        elif esc == 9:
             print(f'{vd}Saindo...')
             sleep(1)
             clear()

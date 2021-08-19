@@ -11,8 +11,8 @@
 > Consulta de placa  
 
 **Ferramentas**
-> Root checker
-> Info números
+> Root checker  
+> Info números  
 > Meu IP  
 
 [**Contato para coversar sobre o script**](https://api.whatsapp.com/send/?phone=%2B994405596345&text&app_absent=0)

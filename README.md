@@ -1,8 +1,8 @@
 # <img src="https://user-images.githubusercontent.com/70035797/126714717-01ca55e2-96d9-4514-a064-8b9a9f1fc782.gif" width="35">[ALpainel](https://www.youtube.com/channel/UCwmkiKIZHL1wscYHfIINZKw)<img src="https://user-images.githubusercontent.com/70035797/126714717-01ca55e2-96d9-4514-a064-8b9a9f1fc782.gif" width="35">
 **COMANDOS**
-- `git clone https://github.com/Lursy/ALpainel`
-- `cd ALpainel`
-- `python ALpainel.py`  
+1: `git clone https://github.com/Lursy/ALpainel`
+2: `cd ALpainel`
+3: `python ALpainel.py`  
 
 **CONSULTAS**
 > Consulta de IP  

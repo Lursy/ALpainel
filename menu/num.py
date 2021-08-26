@@ -4,15 +4,15 @@ import phonenumbers
 
 
 def numeros():
-    EUA = 'n'
+    eua = 'n'
     print(alpainel)
-    telefone = str(input(f'{am}Número: {br}'))
+    telefone = str(input(f'{am}Número: {br}')).replace(' ', '')
     ps = len(telefone)
-    if ps == 11 and not '+' in telefone:
-        EUA = str(input(f'{am}O número inserido é internacional?{cy}[S/N] ')[0].lower())
-    if EUA == 's' or EUA == 'n':
+    if ps == 11 and '+' not in telefone:
+        eua = str(input(f'{am}O número inserido é internacional?{cy}[S/N] ')[0].lower())
+    if eua == 's' or eua == 'n' and telefone.replace('+', '').isnumeric():
         num = phonenumbers.parse(f'+{telefone.replace("+", "")}'
-                                 if ps > 12 or EUA == 's' or '+' in telefone else
+                                 if ps > 12 or eua == 's' or '+' in telefone else
                                  telefone, 'BR')
         numero = phonenumbers.format_number(num, phonenumbers.PhoneNumberFormat.INTERNATIONAL)
         clear()
@@ -30,12 +30,28 @@ def numeros():
         print(f'{vd}[+]{am}Operadora: {vd}' + operadora if operadora != '' else f'{ve}[-]{am}Operadora: {vd}None\n')
         sleep(0.5)
         print(f'{ve}━' * 43)
-        voltar = str(input(f'{am}Voltar{cy}[S/N]: {vd}')).lower()
-        if 's' in voltar[0]:
+        print(f'{am}[1] {cy}Menu\n'
+              f'{am}[2] {cy}Verificar novamente\n'
+              f'{am}[3] {cy}Sair')
+        voltar = str(input(f'{am}//: {vd}'))
+        if '1' in voltar[0]:
+            clear()
+        elif '2' in voltar[0]:
             clear()
             numeros()
-        elif 'n' in voltar[0]:
+        elif '3' in voltar[0]:
             clear()
+            print(f'{vd}Saindo...')
+            exit()
+        else:
+            print(f'{ve}Comando não identificado')
+            sleep(2)
+            clear()
+    elif not telefone.isnumeric():
+        print(f'{ve}número não suportado')
+        sleep(2)
+        clear()
+        numeros()
     else:
         print(f'{ve}Comando inválido!')
         sleep(2)

@@ -59,6 +59,7 @@ try:
             num.numeros()
         elif esc == 6:
             root = os.system('su and exit>null')
+            os.system('rm -rf null')
             if root == 0:
                 print(f'{vd}Root ON')
             elif root == 256:

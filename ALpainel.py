@@ -3,23 +3,23 @@ try:
     import phonenumbers
 except ModuleNotFoundError:
     print('Instalando...')
-    os.system('python3 -m pip install --upgrade pip>&/dev/null/')
-    os.system('pip install phonenumbers>&/dev/null/')
+    os.system('python3 -m pip install --upgrade pip')
+    os.system('pip install phonenumbers')
     import phonenumbers
 try:
     import json
 except ModuleNotFoundError:
     print('Instalando...')
-    os.system('python3 -m pip install --upgrade pip>&/dev/null/')
+    os.system('python3 -m pip install --upgrade pip')
     os.system('pip install json>&/dev/null/')
     import json
 try:
     import requests
 except ModuleNotFoundError:
-    os.system('python3 -m pip install --upgrade pip>&/dev/null/')
+    os.system('python3 -m pip install --upgrade pip')
     os.system('pip install requests>&/dev/null')
     import requests
-from menu import ip, num, cep, cnpj, placa, ascii
+from menu import cnpj, num, placa, ip, cep, ascii
 from menu.tools import *
 from time import sleep
 
@@ -51,13 +51,7 @@ try:
                     clear()
                     num.numeros()
                 elif esc == 6:
-                    root = os.system('su and exit>null')
-                    if root == 0:
-                        print(f'{vd}Root ON')
-                    elif root == 256:
-                        print(f'{ve}Root OFF')
-                    else:
-                        print(f'{cy}Error')
+                    root()
                     sleep(3)
                     clear()
                 elif esc == 7:
@@ -99,6 +93,6 @@ try:
             sleep(2)
             clear()
 except KeyboardInterrupt:
-    print(f'{vd}Saindo...')
+    print(f'\n{vd}Saindo...')
     sleep(2)
     clear()

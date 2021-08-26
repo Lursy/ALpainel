@@ -7,7 +7,7 @@ import json
 def cip():
     print(alpainel)
     ip = str(input(f'{am}IP: {vd}'))
-    if '.' in ip:
+    if '.' in ip and ip.replace('.', '').isnumeric():
         d = requests.get(f'http://ip-api.com/json/{ip}')
         ret = json.loads(d.text)
         if f'""status":"fail"' in d:
@@ -23,14 +23,26 @@ def cip():
               f'{vd}Latitude:{am} {ret["lat"]}\n'
               f'{vd}Longitude:{am} {ret["lon"]}\n')
         print(f'{ve}━' * 43)
-        voltar = str(input(f'{am}Voltar{cy}[S/N]: {vd}')).lower()
-        if 's' in voltar[0]:
+        print(f'{am}[1] {cy}Menu\n'
+              f'{am}[2] {cy}Consultar novamente\n'
+              f'{am}[3] {cy}Sair')
+        voltar = str(input(f'{am}//: {vd}'))
+        if '1' in voltar[0]:
+            clear()
+        elif '2' in voltar[0]:
             clear()
             cip()
-        elif 'n' in voltar[0]:
+        elif '3' in voltar[0]:
+            clear()
+            print(f'{vd}Saindo...')
+            exit()
+        else:
+            print(f'{ve}Comando não identificado')
+            sleep(2)
             clear()
     else:
-        print(f'{ve}Use a pontuação no IP')
+        print(f'{ve}Error {ip} não possui pontuação'
+              if not '.' in ip else f'{am}Digite corretamente {ve}({ip})')
         sleep(1)
         clear()
         cip()
@@ -50,9 +62,20 @@ def mip():
           f'{vd}Latitude:{am} {ret["lat"]}\n'
           f'{vd}Longitude:{am} {ret["lon"]}\n')
     print(f'{ve}━' * 43)
-    voltar = str(input(f'{am}Voltar{cy}[S/N]: {vd}')).lower()
-    if 's' in voltar[0]:
+    print(f'{am}[1] {cy}Menu\n'
+          f'{am}[2] {cy}Ver novamente\n'
+          f'{am}[3] {cy}Sair')
+    voltar = str(input(f'{am}//: {vd}'))
+    if '1' in voltar[0]:
+        clear()
+    elif '2' in voltar[0]:
         clear()
         mip()
-    elif 'n' in voltar[0]:
+    elif '3' in voltar[0]:
+        clear()
+        print(f'{vd}Saindo...')
+        exit()
+    else:
+        print(f'{ve}Comando não identificado')
+        sleep(2)
         clear()

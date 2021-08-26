@@ -1,10 +1,4 @@
-from menu import ip, num, cep, cnpj, placa, ascii
-from menu.tools import *
-from time import sleep
 import os
-
-
-# phonenumbers
 try:
     import phonenumbers
 except ModuleNotFoundError:
@@ -12,9 +6,6 @@ except ModuleNotFoundError:
     os.system('python3 -m pip install --upgrade pip>&/dev/null/')
     os.system('pip install phonenumbers>&/dev/null/')
     import phonenumbers
-
-
-# json
 try:
     import json
 except ModuleNotFoundError:
@@ -22,15 +13,15 @@ except ModuleNotFoundError:
     os.system('python3 -m pip install --upgrade pip>&/dev/null/')
     os.system('pip install json>&/dev/null/')
     import json
-
-
-# requests
 try:
     import requests
 except ModuleNotFoundError:
-    os.system('python3 -m pip install --upgrade pip')
-    os.system('pip install requests')
+    os.system('python3 -m pip install --upgrade pip>&/dev/null/')
+    os.system('pip install requests>&/dev/null')
     import requests
+from menu import ip, num, cep, cnpj, placa, ascii
+from menu.tools import *
+from time import sleep
 
 
 try:
@@ -39,49 +30,73 @@ try:
     sleep(2)
     clear()
     while True:
-        print(ascii.alpainel)
-        print(ascii.painel)
-        esc = int(input(f'{am}//: '))
-        if esc == 1:
+        try:
+            print(ascii.alpainel)
+            print(ascii.painel)
+            esc = int(input(f'{am}//: '))
+            try:
+                if esc == 1:
+                    clear()
+                    cnpj.ccnpj()
+                elif esc == 2:
+                    clear()
+                    cep.ccep()
+                elif esc == 3:
+                    clear()
+                    ip.cip()
+                elif esc == 4:
+                    clear()
+                    placa.cplaca()
+                elif esc == 5:
+                    clear()
+                    num.numeros()
+                elif esc == 6:
+                    root = os.system('su and exit>null')
+                    if root == 0:
+                        print(f'{vd}Root ON')
+                    elif root == 256:
+                        print(f'{ve}Root OFF')
+                    else:
+                        print(f'{cy}Error')
+                    sleep(3)
+                    clear()
+                elif esc == 7:
+                    clear()
+                    ip.mip()
+                elif esc == 8:
+                    os.system(f'termux-open-url https://www.youtube.com/channel/UCwmkiKIZHL1wscYHfIINZKw')
+                    clear()
+                elif esc == 9:
+                    print(f'{vd}Saindo...')
+                    sleep(1)
+                    clear()
+                    break
+                else:
+                    print(f'{ve}Comando inválido!')
+                    sleep(1)
+                    clear()
+            except ValueError:
+                print(f'{ve}Erro de digitação'
+                      f'{am}[1] {cy}menu'
+                      f'{am}[2] {cy}Sair')
+                error = str(input(f'{am}//:'))
+                if error[0] == '1':
+                    pass
+                if error[0] == 2:
+                    print(f'{vd}Saindo...')
+                    sleep(2)
+                    clear()
+                    exit()
+                else:
+                    print(f'{ve}Error')
+                    sleep(10)
+        except ValueError:
+            print(f'{ve}Erro de digitação')
+            sleep(2)
             clear()
-            cnpj.ccnpj()
-        elif esc == 2:
-            clear()
-            cep.ccep()
-        elif esc == 3:
-            clear()
-            ip.cip()
-        elif esc == 4:
-            clear()
-            placa.cplaca()
-        elif esc == 5:
-            clear()
-            num.numeros()
-        elif esc == 6:
-            root = os.system('su and exit>null')
-            os.system('rm -rf null')
-            if root == 0:
-                print(f'{vd}Root ON')
-            elif root == 256:
-                print(f'{ve}Root OFF')
-            else:
-                print(f'{cy}Error')
-            sleep(3)
-            clear()
-        elif esc == 7:
-            clear()
-            ip.mip()
-        elif esc == 8:
-            os.system(f'termux-open-url https://www.youtube.com/channel/UCwmkiKIZHL1wscYHfIINZKw')
-            clear()
-        elif esc == 9:
-            print(f'{vd}Saindo...')
-            sleep(1)
-            clear()
-            break
-        else:
-            print(f'{ve}Comando inválido!')
-            sleep(1)
+        except requests.exceptions.ConnectionError:
+            print(f'{ve}Internet necessaria para executar esta função')
+            sleep(2)
             clear()
 except KeyboardInterrupt:
     print(f'{vd}Saindo...')

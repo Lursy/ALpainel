@@ -11,13 +11,13 @@ try:
 except ModuleNotFoundError:
     print('Instalando...')
     os.system('python3 -m pip install --upgrade pip')
-    os.system('pip install json>&/dev/null/')
+    os.system('pip install json')
     import json
 try:
     import requests
 except ModuleNotFoundError:
     os.system('python3 -m pip install --upgrade pip')
-    os.system('pip install requests>&/dev/null')
+    os.system('pip install requests')
     import requests
 from menu import cnpj, num, placa, ip, cep, ascii
 from menu.tools import *
